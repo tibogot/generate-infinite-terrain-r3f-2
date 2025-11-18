@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import * as THREE from "three";
+import { RigidBody } from "@react-three/rapier";
 import TerrainMaterial from "../Game/View/Materials/TerrainMaterial";
 import TerrainState from "../Game/State/Terrain";
 
@@ -65,6 +66,8 @@ export default function Terrain({ terrainState, material }: TerrainProps) {
 
   // Positions are already in world space (from worker), so mesh should be at origin
   return (
-    <mesh ref={meshRef} geometry={geometryRef.current} material={material} />
+    <RigidBody type="fixed" colliders="trimesh">
+      <mesh ref={meshRef} geometry={geometryRef.current} material={material} />
+    </RigidBody>
   );
 }

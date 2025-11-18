@@ -1,15 +1,26 @@
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Perf } from "r3f-perf";
+import { Physics } from "@react-three/rapier";
 import { GameStateProvider } from "./contexts/GameStateContext";
 import { SkyProvider } from "./contexts/SkyContext";
 import { NoiseProvider } from "./contexts/NoiseContext";
 import { MapProvider } from "./contexts/MapContext";
 import Scene from "./components/Scene";
 import UI from "./components/UI";
+import PhysicsDebugControls, {
+  registerPhysicsDebugSetter,
+} from "./components/PhysicsDebugControls";
 import "./style.css";
 
 function App() {
+  const [physicsDebug, setPhysicsDebug] = useState(false);
+
+  // Register the setter so PhysicsDebugControls can update it
+  useEffect(() => {
+    registerPhysicsDebugSetter(setPhysicsDebug);
+  }, []);
+
   return (
     <GameStateProvider>
       <MapProvider>
@@ -31,9 +42,12 @@ function App() {
                 }}
               >
                 <Perf position="top-left" />
-                <Suspense fallback={null}>
-                  <Scene />
-                </Suspense>
+                <Physics debug={physicsDebug}>
+                  <Suspense fallback={null}>
+                    <Scene />
+                    <PhysicsDebugControls />
+                  </Suspense>
+                </Physics>
               </Canvas>
               <UI />
             </div>
