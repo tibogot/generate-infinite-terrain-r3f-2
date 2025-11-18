@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react'
 import * as THREE from 'three'
+import type { ComponentName } from '../scenes/componentRegistry'
 
 // Map-specific terrain configuration
 export interface MapTerrainConfig {
@@ -32,10 +33,23 @@ export interface MapPlayerConfig {
   // Add more character-specific settings as needed
 }
 
+// Component selection for scene
+export interface SceneComponents {
+  sky: ComponentName
+  terrain: ComponentName
+  water: ComponentName
+  chunks: ComponentName
+  player: ComponentName
+  grass: ComponentName
+  noises: ComponentName
+  camera: ComponentName
+}
+
 // Complete map configuration
 export interface MapConfig {
   id: string
   name: string
+  components: SceneComponents
   terrain: MapTerrainConfig
   sky: MapSkyConfig
   player: MapPlayerConfig
@@ -74,6 +88,16 @@ const defaultMaps: MapConfig[] = [
   {
     id: 'map1',
     name: 'Map 1 - Default',
+    components: {
+      sky: 'Sky',
+      terrain: 'Terrains',
+      water: 'Water',
+      chunks: 'Chunks',
+      player: 'Player',
+      grass: 'Grass',
+      noises: 'Noises',
+      camera: 'Camera',
+    },
     terrain: {
       seed: 'p',
       subdivisions: 120,
@@ -101,7 +125,17 @@ const defaultMaps: MapConfig[] = [
   },
   {
     id: 'map2',
-    name: 'Map 2 - Godot Character',
+    name: 'Map 2 - Simple Sky',
+    components: {
+      sky: 'SimpleSky', // Different sky component!
+      terrain: 'Terrains', // Same terrain
+      water: 'Water', // Same water
+      chunks: 'Chunks', // Same chunks
+      player: 'Player', // Same player
+      grass: 'Grass', // Same grass
+      noises: 'Noises', // Same noises
+      camera: 'Camera', // Same camera
+    },
     terrain: {
       seed: 'p',
       subdivisions: 120,
@@ -124,7 +158,45 @@ const defaultMaps: MapConfig[] = [
     },
     player: {
       spawnPosition: [0, 50, 0],
-      characterType: 'godot-hybrid',
+      characterType: 'capsule',
+    },
+  },
+  {
+    id: 'map3',
+    name: 'Map 3 - Simple Sky Copy',
+    components: {
+      sky: 'SimpleSky',
+      terrain: 'Terrains',
+      water: 'Water',
+      chunks: 'Chunks',
+      player: 'Player',
+      grass: 'Grass',
+      noises: 'Noises',
+      camera: 'Camera',
+    },
+    terrain: {
+      seed: 'p',
+      subdivisions: 120,
+      lacunarity: 2.2,
+      persistence: 0.4,
+      maxIterations: 8,
+      baseFrequency: 0.002,
+      baseAmplitude: 220,
+      power: 2.2,
+      elevationOffset: 1,
+    },
+    sky: {
+      sunPosition: [-0.5, -0.5, -0.5],
+      colorDayCycleLow: '#f0fff9',
+      colorDayCycleHigh: '#2e89ff',
+      colorNightLow: '#004794',
+      colorNightHigh: '#001624',
+      colorSun: '#ff531a',
+      colorDawn: '#ff1900',
+    },
+    player: {
+      spawnPosition: [0, 50, 0],
+      characterType: 'capsule',
     },
   },
 ]
