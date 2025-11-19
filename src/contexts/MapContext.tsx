@@ -205,6 +205,44 @@ const defaultMaps: MapConfig[] = [
       characterType: "godot-hybrid",
     },
   },
+  {
+    id: "map4",
+    name: "Map 4 - Simple Sky Copy",
+    components: {
+      sky: "DreiSky",
+      terrain: "FlatTerrainInfinite",
+      water: null, // Disabled for flat terrain
+      chunks: null, // Disabled for flat terrain
+      player: "GodotPlayer",
+      grass: null, // Commented out for now
+      noises: null, // Disabled for flat terrain
+      camera: "Camera",
+    },
+    terrain: {
+      seed: "p",
+      subdivisions: 120,
+      lacunarity: 2.2,
+      persistence: 0.4,
+      maxIterations: 8,
+      baseFrequency: 0.002,
+      baseAmplitude: 220,
+      power: 2.2,
+      elevationOffset: 1,
+    },
+    sky: {
+      sunPosition: [-0.5, -0.5, -0.5],
+      colorDayCycleLow: "#f0fff9",
+      colorDayCycleHigh: "#2e89ff",
+      colorNightLow: "#004794",
+      colorNightHigh: "#001624",
+      colorSun: "#ff531a",
+      colorDawn: "#ff1900",
+    },
+    player: {
+      spawnPosition: [0, 20, 0],
+      characterType: "godot-hybrid",
+    },
+  },
 ];
 
 export function MapProvider({ children }: { children: React.ReactNode }) {

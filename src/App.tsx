@@ -51,10 +51,13 @@ function App() {
                   }}
                   dpr={[1, 2]}
                   camera={{ fov: 45, near: 0.1, far: 5000 }}
+                  shadows
                   onCreated={(state) => {
-                    state.gl.setClearColor("#222222", 1);
+                    // Don't set clear color - let Sky components handle the background
+                    // state.gl.setClearColor("#222222", 1);
                     state.gl.outputColorSpace = "srgb";
                     state.gl.toneMapping = 4; // ACESFilmicToneMapping
+                    // Note: toneMappingExposure will be set per-map in Scene component
                   }}
                 >
                   <Perf position="top-left" />

@@ -1,6 +1,7 @@
 import React from "react";
 import Sky from "../components/Sky";
 import Terrains from "../components/Terrains";
+import TerrainsStandard from "../components/TerrainsStandard";
 import Water from "../components/Water";
 import Chunks from "../components/Chunks";
 import Player from "../components/Player";
@@ -9,12 +10,20 @@ import Noises from "../components/Noises";
 import Camera from "../components/Camera";
 import SimpleSky from "./components/SimpleSky";
 import GodotPlayer from "./components/GodotPlayer";
+import DreiSky from "./components/DreiSky";
+import FlatTerrain from "./components/FlatTerrain";
+import FlatTerrainInfinite from "./components/FlatTerrainInfinite";
+import Csm from "../components/Csm";
 
 // Component registry type
 export type ComponentName =
   | "Sky"
   | "SimpleSky"
+  | "DreiSky"
   | "Terrains"
+  | "TerrainsStandard"
+  | "FlatTerrain"
+  | "FlatTerrainInfinite"
   | "Water"
   | "Chunks"
   | "Player"
@@ -22,6 +31,7 @@ export type ComponentName =
   | "Grass"
   | "Noises"
   | "Camera"
+  | "Csm"
   | null;
 
 // Component registry mapping
@@ -29,6 +39,7 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   // Default components
   Sky: Sky,
   Terrains: Terrains,
+  TerrainsStandard: TerrainsStandard,
   Water: Water,
   Chunks: Chunks,
   Player: Player,
@@ -39,6 +50,10 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
 
   // Scene-specific components
   SimpleSky: SimpleSky,
+  DreiSky: DreiSky,
+  FlatTerrain: FlatTerrain,
+  FlatTerrainInfinite: FlatTerrainInfinite,
+  Csm: Csm,
   // Add more scene-specific components here as you create them
 };
 
