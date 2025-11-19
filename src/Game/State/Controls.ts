@@ -84,20 +84,12 @@ export default class Controls {
                 name: 'boost'
             },
             {
-                codes: ['KeyP'],
-                name: 'pointerLock'
-            },
-            {
                 codes: ['KeyV'],
                 name: 'cameraMode'
             },
             {
                 codes: ['KeyB'],
                 name: 'debug'
-            },
-            {
-                codes: ['KeyF'],
-                name: 'fullscreen'
             },
             {
                 codes: ['Space'],

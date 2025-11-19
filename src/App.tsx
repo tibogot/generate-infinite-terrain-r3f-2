@@ -24,7 +24,7 @@ const keyboardMap = [
   { name: "run", keys: ["ShiftLeft", "ShiftRight"] },
   { name: "crouch", keys: ["ControlLeft", "ControlRight", "KeyC"] },
   { name: "dance", keys: ["KeyE"] },
-  { name: "roll", keys: ["AltLeft", "AltRight"] },
+  { name: "roll", keys: ["KeyF"] },
   { name: "walkBackward", keys: ["KeyQ"] },
 ];
 

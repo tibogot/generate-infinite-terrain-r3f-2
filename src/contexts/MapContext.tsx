@@ -201,7 +201,7 @@ const defaultMaps: MapConfig[] = [
       colorDawn: "#ff1900",
     },
     player: {
-      spawnPosition: [0, 50, 0],
+      spawnPosition: [0, 20, 0],
       characterType: "godot-hybrid",
     },
   },
