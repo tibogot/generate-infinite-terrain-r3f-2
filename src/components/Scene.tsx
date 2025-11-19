@@ -6,6 +6,12 @@ import FreeOrbitCameraControls from "./FreeOrbitCameraControls";
 import Lights from "./Lights";
 import Csm from "./Csm";
 import CsmControls, { useCsmControls } from "./CsmControls";
+import Grass2Controls, { useGrass2Controls } from "./Grass2Controls";
+import Grass2 from "./Grass2";
+import Noises2 from "./Noises2";
+import FlatTerrainControls from "./FlatTerrainControls";
+import { GameStateProvider2 } from "../contexts/GameStateContext2";
+import { NoiseProvider2 } from "../contexts/NoiseContext2";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 
@@ -13,6 +19,7 @@ export default function Scene() {
   const { activeMapConfig } = useMap();
   const { gl } = useThree();
   const csmControls = useCsmControls();
+  const grass2Controls = useGrass2Controls();
 
   // Adjust tone mapping exposure for map4 (drei Sky needs lower exposure, but we compensate with brighter lights)
   useEffect(() => {
@@ -38,6 +45,12 @@ export default function Scene() {
 
       {/* CSM Controls - Only show for map4 */}
       {isMap4 && <CsmControls />}
+
+      {/* Grass2 Controls - Only show for map4 */}
+      {isMap4 && <Grass2Controls />}
+
+      {/* Flat Terrain Controls - Only show for map4 */}
+      {isMap4 && <FlatTerrainControls />}
 
       {/* Free orbit camera controls */}
       <FreeOrbitCameraControls />
@@ -74,6 +87,16 @@ export default function Scene() {
       {renderComponent(components.chunks)}
       {renderComponent(components.player)}
       {renderComponent(components.grass)}
+
+      {/* Grass2 - Only in map4, with its own providers */}
+      {isMap4 && grass2Controls.enabled && (
+        <GameStateProvider2>
+          <NoiseProvider2>
+            <Noises2 />
+            <Grass2 />
+          </NoiseProvider2>
+        </GameStateProvider2>
+      )}
 
       {/* Physics debug cubes with Leva controls */}
       <PhysicsDebugCubesControls />

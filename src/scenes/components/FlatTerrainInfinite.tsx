@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { RigidBody } from "@react-three/rapier";
 import { useThree } from "@react-three/fiber";
 import { useGameState } from "../../contexts/GameStateContext";
+import { useFlatTerrainControls } from "../../components/FlatTerrainControls";
 
 interface FlatTerrainChunk {
   id: string;
@@ -21,6 +22,7 @@ interface FlatTerrainChunk {
 export default function FlatTerrainInfinite() {
   const { scene } = useThree();
   const state = useGameState();
+  const flatTerrainControls = useFlatTerrainControls();
   const chunksRef = useRef<Map<string, FlatTerrainChunk>>(new Map());
   const [chunks, setChunks] = useState<Map<string, FlatTerrainChunk>>(
     new Map()
@@ -29,14 +31,14 @@ export default function FlatTerrainInfinite() {
   // Get chunk size from state
   const chunkSize = useMemo(() => state.chunks.maxSize, [state.chunks.maxSize]);
 
-  // Create a flat terrain material
+  // Create a flat terrain material with color from controls
   const materialTemplate = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: 0x8b9a5b, // Grass green
+      color: flatTerrainControls.color, // Color from Leva controls
       metalness: 0.1,
       roughness: 0.9,
     });
-  }, []);
+  }, [flatTerrainControls.color]);
 
   // Function to create a flat terrain chunk
   const createFlatChunk = (
@@ -158,6 +160,14 @@ export default function FlatTerrainInfinite() {
       chunksRef.current.clear();
     };
   }, [chunkSize, scene, state.player.position, materialTemplate]);
+
+  // Update color of all existing chunks when color changes
+  useEffect(() => {
+    const newColor = new THREE.Color(flatTerrainControls.color);
+    for (const chunk of chunksRef.current.values()) {
+      chunk.material.color.copy(newColor);
+    }
+  }, [flatTerrainControls.color]);
 
   // Note: Meshes are already added to scene in useEffect
   // We just need to return the RigidBody components for physics
