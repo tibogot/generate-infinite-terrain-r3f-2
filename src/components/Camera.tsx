@@ -3,6 +3,17 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useGameState } from '../contexts/GameStateContext'
 
+// Global ref to check if free orbit camera is enabled
+let freeOrbitEnabledRef = false
+
+export function setFreeOrbitEnabled(enabled: boolean) {
+  freeOrbitEnabledRef = enabled
+}
+
+export function isFreeOrbitEnabled() {
+  return freeOrbitEnabledRef
+}
+
 export default function Camera() {
   const { camera, size } = useThree()
   const state = useGameState()
@@ -24,7 +35,13 @@ export default function Camera() {
   }, [size, camera])
 
   // Update camera position and rotation from player state
+  // Only update if free orbit camera is not enabled
   useFrame(() => {
+    // Skip updates if free orbit camera is active
+    if (freeOrbitEnabledRef) {
+      return
+    }
+
     const playerState = state.player
     if (cameraRef.current) {
       cameraRef.current.position.set(

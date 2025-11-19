@@ -1,6 +1,9 @@
 import { useMap } from "../contexts/MapContext";
 import { renderComponent } from "../scenes/componentRegistry";
 import MapSelector from "./MapSelector";
+import PhysicsDebugCubesControls from "./PhysicsDebugCubesControls";
+import FreeOrbitCameraControls from "./FreeOrbitCameraControls";
+import Lights from "./Lights";
 
 export default function Scene() {
   const { activeMapConfig } = useMap();
@@ -17,6 +20,12 @@ export default function Scene() {
       {/* Map selector for Leva controls */}
       <MapSelector />
 
+      {/* Free orbit camera controls */}
+      <FreeOrbitCameraControls />
+
+      {/* Lights for standard materials (like physics cubes) */}
+      <Lights />
+
       {/* Dynamically render components based on map config */}
       {renderComponent(components.camera)}
       {renderComponent(components.noises)}
@@ -26,6 +35,9 @@ export default function Scene() {
       {renderComponent(components.chunks)}
       {renderComponent(components.player)}
       {renderComponent(components.grass)}
+
+      {/* Physics debug cubes with Leva controls */}
+      <PhysicsDebugCubesControls />
     </>
   );
 }

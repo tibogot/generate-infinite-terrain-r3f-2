@@ -8,6 +8,7 @@ import Grass from "../components/Grass";
 import Noises from "../components/Noises";
 import Camera from "../components/Camera";
 import SimpleSky from "./components/SimpleSky";
+import GodotPlayer from "./components/GodotPlayer";
 
 // Component registry type
 export type ComponentName =
@@ -17,6 +18,7 @@ export type ComponentName =
   | "Water"
   | "Chunks"
   | "Player"
+  | "GodotPlayer"
   | "Grass"
   | "Noises"
   | "Camera"
@@ -30,6 +32,7 @@ export const componentRegistry: Record<string, React.ComponentType<any>> = {
   Water: Water,
   Chunks: Chunks,
   Player: Player,
+  GodotPlayer: GodotPlayer,
   Grass: Grass,
   Noises: Noises,
   Camera: Camera,
